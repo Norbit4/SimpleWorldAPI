@@ -88,7 +88,6 @@ public class WorldManager {
         HashMap<String, Config> configHashMap = ConfigManager.getConfigHashMap();
 
         configHashMap.forEach((worldName, config) -> {
-            System.out.println(worldName);
 
             if(config.isLoadOnStart()){
                 World world = new WorldCreator(worldName).createWorld();

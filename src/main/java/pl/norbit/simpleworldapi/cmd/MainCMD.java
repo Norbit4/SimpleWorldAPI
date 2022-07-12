@@ -24,13 +24,13 @@ public class MainCMD implements CommandExecutor {
                 createWorld(p, args);
             }else if(arg1.equalsIgnoreCase("tp")) {
 
-                teleportCmd(p, args);
+                teleport(p, args);
             }else if(arg1.equalsIgnoreCase("clone")) {
-                long l1 = System.currentTimeMillis();
 
-                WorldManager.clone(args[1], args[2], true);
+                cloneWorld(p, args);
+            }else if(arg1.equalsIgnoreCase("load")){
 
-                p.sendMessage(System.currentTimeMillis() - l1 + " ms");
+                loadWorld(p, args);
             }
         }
         return false;
@@ -55,7 +55,7 @@ public class MainCMD implements CommandExecutor {
             p.sendMessage(time + "ms");
         }
     }
-    private void teleportCmd(Player p, String[] args){
+    private void teleport(Player p, String[] args){
         if (args.length > 1) {
 
             String worldName = args[1];
@@ -87,6 +87,39 @@ public class MainCMD implements CommandExecutor {
 
                 p.teleport(new Location(world, x, y, z));
             } else {
+                p.sendMessage("world = null");
+            }
+        }
+    }
+
+    private void cloneWorld(Player p, String[] args){
+
+        if(args.length > 2) {
+            long l1 = System.currentTimeMillis();
+
+            boolean tempWorld = false;
+
+            if (args.length > 3) {
+                tempWorld = Boolean.parseBoolean(args[3].toLowerCase());
+            }
+
+            WorldManager.clone(args[1], args[2], tempWorld);
+
+            p.sendMessage(System.currentTimeMillis() - l1 + " ms");
+        }
+    }
+
+    private void loadWorld(Player p, String[] args){
+        if(args.length > 1){
+            String worldName = args[1];
+
+            long l1 = System.currentTimeMillis();
+
+            World world = WorldManager.loadWorld(worldName);
+
+            if(world != null){
+                p.sendMessage(System.currentTimeMillis() - l1 + " ms");
+            }else{
                 p.sendMessage("world = null");
             }
         }
