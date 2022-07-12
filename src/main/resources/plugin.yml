@@ -1,0 +1,9 @@
+name: SimpleWorldAPI
+version: '${version}'
+main: pl.norbit.simpleworldapi.SimpleWorldAPI
+authors: [ Norbit ]
+
+commands:
+  swapi:
+  simpleworldapi:
+
