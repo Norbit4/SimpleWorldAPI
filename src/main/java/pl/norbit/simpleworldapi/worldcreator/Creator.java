@@ -6,7 +6,7 @@ import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
 import pl.norbit.simpleworldapi.worldbuilder.enums.SimpleWorldType;
-import pl.norbit.simpleworldapi.worldconfig.ConfigManager;
+import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ public class Creator {
         });
 
         try {
-            ConfigManager.createWorldConfig(simpleWorld);
+            WorldConfigManager.createWorldConfig(simpleWorld);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

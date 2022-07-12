@@ -13,11 +13,11 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class ConfigManager {
+public class WorldConfigManager {
     private static Gson gson;
     private static String worldFolderName, path;
     @Getter
-    private final static HashMap<String, Config> configHashMap;
+    private final static HashMap<String, WorldConfig> configHashMap;
 
     static {
         configHashMap = new HashMap<>();
@@ -50,12 +50,12 @@ public class ConfigManager {
     }
 
     public static void reloadConfigList() throws IOException {
-        File file = ConfigManager.getWorldDirectory();
+        File file = WorldConfigManager.getWorldDirectory();
 
         for (File configFile : Objects.requireNonNull(file.listFiles())) {
             BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(configFile.getAbsolutePath()));
 
-            Config config = gson.fromJson(bufferedReader, Config.class);
+            WorldConfig config = gson.fromJson(bufferedReader, WorldConfig.class);
             String[] split = configFile.getName().split("\\.");
             String worldName = split[0];
 
@@ -63,19 +63,19 @@ public class ConfigManager {
         }
     }
 
-    public static Config loadTempWorldConfig(String world, String cloneWorld){
-        Config config = configHashMap.get(world);
+    public static WorldConfig loadTempWorldConfig(String world, String cloneWorld){
+        WorldConfig config = configHashMap.get(world);
 
         configHashMap.put(cloneWorld, config);
 
         return config;
     }
 
-    public static Config createWorldConfig(String copyWorldName) throws IOException {
+    public static WorldConfig createWorldConfig(String copyWorldName) throws IOException {
         String worldPath = path + "/" + copyWorldName + ".json";
 
         PrintWriter writer = new PrintWriter(new FileWriter(worldPath));
-        Config config = configHashMap.get(copyWorldName);
+        WorldConfig config = configHashMap.get(copyWorldName);
 
         writer.write(gson.toJson(config));
         writer.flush();
@@ -88,13 +88,13 @@ public class ConfigManager {
         String worldPath = path + "/" + simpleWorld.getWorldName() + ".json";
 
         PrintWriter writer = new PrintWriter(new FileWriter(worldPath));
-        Config config = new Config(
+        WorldConfig config = new WorldConfig(
                 simpleWorld.isPvp(),
                 simpleWorld.isLoadOnStart(),
                 simpleWorld.isSpawnEntities(),
-                simpleWorld.isExplosions(),
+                simpleWorld.isExplosionsBreak(),
                 simpleWorld.isWeather(),
-                simpleWorld.isDayCycle(),
+                simpleWorld.isTime(),
                 simpleWorld.getDifficulty().name()
         );
 

@@ -4,8 +4,8 @@ import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
-import pl.norbit.simpleworldapi.worldconfig.Config;
-import pl.norbit.simpleworldapi.worldconfig.ConfigManager;
+import pl.norbit.simpleworldapi.worldconfig.WorldConfig;
+import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
 
 import java.util.HashMap;
 
@@ -16,10 +16,10 @@ public class EntitySpawn implements Listener {
 
         Location loc = e.getLocation();
         String worldName = loc.getWorld().getName();
-        HashMap<String, Config> configHashMap = ConfigManager.getConfigHashMap();
+        HashMap<String, WorldConfig> configHashMap = WorldConfigManager.getConfigHashMap();
 
         if(configHashMap.containsKey(worldName)){
-            Config config = configHashMap.get(worldName);
+            WorldConfig config = configHashMap.get(worldName);
 
             if(!config.isSpawnEntities()){
                 e.setCancelled(true);

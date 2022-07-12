@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Config {
+public class WorldConfig {
 
     private boolean pvp, loadOnStart, spawnEntities, explosions, weather, dayCycle;
     private String difficulty;

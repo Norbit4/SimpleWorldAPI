@@ -4,8 +4,8 @@ import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
-import pl.norbit.simpleworldapi.worldconfig.Config;
-import pl.norbit.simpleworldapi.worldconfig.ConfigManager;
+import pl.norbit.simpleworldapi.worldconfig.WorldConfig;
+import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
 import pl.norbit.simpleworldapi.worldcreator.Creator;
 
 import java.io.File;
@@ -25,7 +25,7 @@ public class WorldManager {
     public static World createWorld(SimpleWorld simpleWorld){
 
         try {
-            ConfigManager.reloadConfigList();
+            WorldConfigManager.reloadConfigList();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -66,12 +66,12 @@ public class WorldManager {
         WorldCreator creator = new WorldCreator(newWorldPath);
 
         World world = creator.createWorld();
-        Config config;
+        WorldConfig config;
         if(tempWorld){
-            config = ConfigManager.loadTempWorldConfig(worldName, "./temp/" + cloneWoldName);
+            config = WorldConfigManager.loadTempWorldConfig(worldName, "./temp/" + cloneWoldName);
         }else{
             try {
-                config = ConfigManager.createWorldConfig(worldName);
+                config = WorldConfigManager.createWorldConfig(worldName);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -85,7 +85,7 @@ public class WorldManager {
 
     protected static void loadConfigWorlds() throws IOException {
 
-        HashMap<String, Config> configHashMap = ConfigManager.getConfigHashMap();
+        HashMap<String, WorldConfig> configHashMap = WorldConfigManager.getConfigHashMap();
 
         configHashMap.forEach((worldName, config) -> {
 
@@ -115,11 +115,11 @@ public class WorldManager {
     }
     private static void loadSettings(World world){
 
-        HashMap<String, Config> configHashMap = ConfigManager.getConfigHashMap();
+        HashMap<String, WorldConfig> configHashMap = WorldConfigManager.getConfigHashMap();
         String worldName = world.getName();
 
         if(configHashMap.containsKey(worldName)){
-            Config config = ConfigManager.getConfigHashMap().get(worldName);
+            WorldConfig config = WorldConfigManager.getConfigHashMap().get(worldName);
             world.setDifficulty(Difficulty.valueOf(config.getDifficulty()));
             world.setPVP(config.isPvp());
         }

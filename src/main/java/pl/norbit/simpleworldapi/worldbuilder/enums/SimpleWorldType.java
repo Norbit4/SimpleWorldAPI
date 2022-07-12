@@ -7,7 +7,10 @@ import org.bukkit.WorldType;
 @Getter
 @AllArgsConstructor
 public enum SimpleWorldType {
-    VOID("2;0;1", WorldType.FLAT);
+    VOID("2;0;1", WorldType.FLAT),
+    NORMAL("", WorldType.NORMAL),
+    LARGE_BIOMES("", WorldType.LARGE_BIOMES),
+    FLAT("", WorldType.FLAT);
 
     private final String generatorSettings;
     private final WorldType worldType;

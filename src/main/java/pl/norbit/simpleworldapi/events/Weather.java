@@ -4,8 +4,8 @@ import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.weather.WeatherChangeEvent;
-import pl.norbit.simpleworldapi.worldconfig.Config;
-import pl.norbit.simpleworldapi.worldconfig.ConfigManager;
+import pl.norbit.simpleworldapi.worldconfig.WorldConfig;
+import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
 
 import java.util.HashMap;
 
@@ -15,10 +15,10 @@ public class Weather implements Listener {
     public void onEvent(WeatherChangeEvent e){
         World world = e.getWorld();
         String worldName = world.getName();
-        HashMap<String, Config> configHashMap = ConfigManager.getConfigHashMap();
+        HashMap<String, WorldConfig> configHashMap = WorldConfigManager.getConfigHashMap();
 
         if(configHashMap.containsKey(worldName)){
-            Config config = configHashMap.get(worldName);
+            WorldConfig config = configHashMap.get(worldName);
 
             if(!config.isWeather()){
                 e.setCancelled(e.toWeatherState());

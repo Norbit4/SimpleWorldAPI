@@ -1,1 +1,34 @@
-#by Norbit4
+#---------------------------------------#
+# SimpleWorldAPI created by Norbit4
+# github: https://github.com/Norbit4
+
+#---------------------------------------#
+#              [config]                 #
+#---------------------------------------#
+permission-message: '&cYou are not permissions!'
+wrong-args-prefix: '&7Use: &a{CMD}'
+
+#---------------------------------------#
+#      [default world settings]         #
+#---------------------------------------#
+
+# world types:
+
+# void - empty world
+# normal - default minecraft generator
+# large-biomes - very high mountains
+# flat - flat world
+
+world-type: 'void'
+generate-structures: false
+difficulty: 'normal'
+# weather cycle on world
+weather: false
+# time cycle on world
+time: false
+pvp: true
+# center bedrock block on x: 0 y: 60 z: 0
+center-block: true
+spawn-entities: false
+# explosions destroy blocks
+explosion-break: true
