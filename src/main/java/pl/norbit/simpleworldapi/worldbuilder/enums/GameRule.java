@@ -1,6 +1,5 @@
 package pl.norbit.simpleworldapi.worldbuilder.enums;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

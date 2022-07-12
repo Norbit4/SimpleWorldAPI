@@ -9,16 +9,18 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.norbit.simpleworldapi.WorldManager;
+import pl.norbit.simpleworldapi.config.PluginConfig;
+import pl.norbit.simpleworldapi.utils.ChatUtil;
 import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
 
 public class MainCMD implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+        Player p = (Player) sender;
         if(args.length > 0){
 
             String arg1 = args[0];
-            Player p = (Player) sender;
             if(arg1.equalsIgnoreCase("create")) {
 
                 createWorld(p, args);
@@ -32,6 +34,13 @@ public class MainCMD implements CommandExecutor {
 
                 loadWorld(p, args);
             }
+        }else{
+            p.sendMessage(ChatUtil.format("&7-------&8[&aSimpleWorldAPI&8]&7-------"));
+            p.sendMessage(ChatUtil.format("&a* &8/&bswapi &acreate &a<name> &7- create new world"));
+            p.sendMessage(ChatUtil.format("&a* &8/&bswapi &atp &a<world>  <x> <y> <z> &7- tp to world"));
+            p.sendMessage(ChatUtil.format("&a* &8/&bswapi &aload &a<world> &7- load world"));
+            p.sendMessage(ChatUtil.format("&a* &8/&bswapi &aclone &a<world> <new_world> &7- copy world"));
+            p.sendMessage(ChatUtil.format(""));
         }
         return false;
     }
@@ -53,6 +62,9 @@ public class MainCMD implements CommandExecutor {
             long time = System.currentTimeMillis() - l1;
 
             p.sendMessage(time + "ms");
+        }else{
+            String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}", "/swapi create <world>");
+            p.sendMessage(ChatUtil.format(message));
         }
     }
     private void teleport(Player p, String[] args){
@@ -89,6 +101,9 @@ public class MainCMD implements CommandExecutor {
             } else {
                 p.sendMessage("world = null");
             }
+        }else{
+            String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}", "/swapi tp <world>");
+            p.sendMessage(ChatUtil.format(message));
         }
     }
 
@@ -106,6 +121,10 @@ public class MainCMD implements CommandExecutor {
             WorldManager.clone(args[1], args[2], tempWorld);
 
             p.sendMessage(System.currentTimeMillis() - l1 + " ms");
+        }else{
+            String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}",
+                    "/swapi clone <world> <new_world>");
+            p.sendMessage(ChatUtil.format(message));
         }
     }
 
@@ -122,6 +141,9 @@ public class MainCMD implements CommandExecutor {
             }else{
                 p.sendMessage("world = null");
             }
+        }else{
+            String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}", "/swapi load <world>");
+            p.sendMessage(ChatUtil.format(message));
         }
     }
 }
