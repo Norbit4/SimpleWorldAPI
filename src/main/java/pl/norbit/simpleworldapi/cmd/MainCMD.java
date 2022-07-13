@@ -14,28 +14,32 @@ import pl.norbit.simpleworldapi.utils.ChatUtil;
 import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
 
 public class MainCMD implements CommandExecutor {
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         Player p = (Player) sender;
         if(args.length > 0){
 
+            long t1 = System.currentTimeMillis();
             String arg1 = args[0];
+
             if(arg1.equalsIgnoreCase("create")) {
 
-                createWorld(p, args);
+                createWorld(p, args, t1);
             }else if(arg1.equalsIgnoreCase("tp")) {
 
                 teleport(p, args);
             }else if(arg1.equalsIgnoreCase("clone")) {
 
-                cloneWorld(p, args);
+                cloneWorld(p, args, t1);
             }else if(arg1.equalsIgnoreCase("load")){
 
-                loadWorld(p, args);
+                loadWorld(p, args, t1);
             }
         }else{
-            p.sendMessage(ChatUtil.format("&7-------&8[&aSimpleWorldAPI&8]&7-------"));
+            p.sendMessage(ChatUtil.format(""));
+            p.sendMessage(ChatUtil.format("&7---------------&8[&aSimpleWorldAPI&8]&7---------------"));
             p.sendMessage(ChatUtil.format("&a* &8/&bswapi &acreate &a<name> &7- create new world"));
             p.sendMessage(ChatUtil.format("&a* &8/&bswapi &atp &a<world>  <x> <y> <z> &7- tp to world"));
             p.sendMessage(ChatUtil.format("&a* &8/&bswapi &aload &a<world> &7- load world"));
@@ -45,11 +49,9 @@ public class MainCMD implements CommandExecutor {
         return false;
     }
 
-    private void createWorld(Player p, String[] args){
+    private void createWorld(Player p, String[] args, long t1){
         if(args.length > 1) {
             String worldName = args[1];
-
-            long l1 = System.currentTimeMillis();
 
             SimpleWorld simpleWorld = SimpleWorld.builder()
                     .worldName(worldName)
@@ -60,9 +62,12 @@ public class MainCMD implements CommandExecutor {
 
             WorldManager.createWorld(simpleWorld);
 
-            long time = System.currentTimeMillis() - l1;
+            long time = System.currentTimeMillis() - t1;
+            String message = PluginConfig.WORLD_CREATE_MESSAGE
+                    .replace("{WORLD}", worldName)
+                    .replace("{TIME}",String.valueOf(time));
 
-            p.sendMessage(time + "ms");
+            p.sendMessage(ChatUtil.format(message));
         }else{
             String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}", "/swapi create <world>");
             p.sendMessage(ChatUtil.format(message));
@@ -99,6 +104,10 @@ public class MainCMD implements CommandExecutor {
             if (world != null) {
 
                 p.teleport(new Location(world, x, y, z));
+                String message = PluginConfig.TP_MESSAGE
+                        .replace("{WORLD}", worldName)
+                        .replace("{PLAYER}",p.getName());
+                p.sendMessage(ChatUtil.format(message));
             } else {
                 p.sendMessage("world = null");
             }
@@ -108,10 +117,9 @@ public class MainCMD implements CommandExecutor {
         }
     }
 
-    private void cloneWorld(Player p, String[] args){
+    private void cloneWorld(Player p, String[] args, long t1){
 
         if(args.length > 2) {
-            long l1 = System.currentTimeMillis();
 
             boolean tempWorld = false;
 
@@ -119,9 +127,15 @@ public class MainCMD implements CommandExecutor {
                 tempWorld = Boolean.parseBoolean(args[3].toLowerCase());
             }
 
-            WorldManager.clone(args[1], args[2], tempWorld);
+            World clone = WorldManager.clone(args[1], args[2], tempWorld);
 
-            p.sendMessage(System.currentTimeMillis() - l1 + " ms");
+            long time = System.currentTimeMillis() - t1;
+
+            String message = PluginConfig.WORLD_CLONE_MESSAGE
+                    .replace("{WORLD}", clone.getName())
+                    .replace("{TIME}",String.valueOf(time));
+
+            p.sendMessage(ChatUtil.format(message));
         }else{
             String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}",
                     "/swapi clone <world> <new_world>");
@@ -129,16 +143,20 @@ public class MainCMD implements CommandExecutor {
         }
     }
 
-    private void loadWorld(Player p, String[] args){
+    private void loadWorld(Player p, String[] args, long t1){
         if(args.length > 1){
             String worldName = args[1];
-
-            long l1 = System.currentTimeMillis();
 
             World world = WorldManager.loadWorld(worldName);
 
             if(world != null){
-                p.sendMessage(System.currentTimeMillis() - l1 + " ms");
+                long time = System.currentTimeMillis() - t1;
+                String message = PluginConfig.WORLD_LOAD_MESSAGE
+                        .replace("{WORLD}", world.getName())
+                        .replace("{TIME}",String.valueOf(time));
+
+                p.sendMessage(ChatUtil.format(message));
+
             }else{
                 p.sendMessage("world = null");
             }
