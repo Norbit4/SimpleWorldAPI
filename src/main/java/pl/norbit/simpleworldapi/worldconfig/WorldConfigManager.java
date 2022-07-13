@@ -72,6 +72,7 @@ public class WorldConfigManager {
 
             return config;
         }
+
         configHashMap.forEach((key, value) -> {
             System.out.println(key);
         });
@@ -79,8 +80,8 @@ public class WorldConfigManager {
         return null;
     }
 
-    public static WorldConfig createWorldConfig(String copyWorldName) throws IOException {
-        String worldPath = path + "/" + copyWorldName + ".json";
+    public static WorldConfig createWorldConfig(String copyWorldName, String newWorld) throws IOException {
+        String worldPath = path + "/" + newWorld + ".json";
 
         PrintWriter writer = new PrintWriter(new FileWriter(worldPath));
         WorldConfig config = configHashMap.get(copyWorldName);
@@ -89,15 +90,12 @@ public class WorldConfigManager {
         writer.flush();
         writer.close();
 
-        configHashMap.put(copyWorldName, config);
+        configHashMap.put(newWorld, config);
 
         return config;
     }
 
-    public static void createWorldConfig(SimpleWorld simpleWorld) throws IOException {
-        String worldPath = path + "/" + simpleWorld.getWorldName() + ".json";
-
-        PrintWriter writer = new PrintWriter(new FileWriter(worldPath));
+    public static void createWorldConfig(SimpleWorld simpleWorld, boolean tempWorld) throws IOException {
         WorldConfig config = new WorldConfig(
                 simpleWorld.isPvp(),
                 simpleWorld.isLoadOnStart(),
@@ -105,14 +103,24 @@ public class WorldConfigManager {
                 simpleWorld.isExplosionsBreak(),
                 simpleWorld.isWeather(),
                 simpleWorld.isTime(),
+                simpleWorld.isTemplateWorld(),
                 simpleWorld.getDifficulty().name()
         );
 
-        writer.write(gson.toJson(config));
-        writer.flush();
-        writer.close();
+        String worldName = "/temp/" + simpleWorld.getWorldName();
 
-        configHashMap.put(simpleWorld.getWorldName(), config);
+        if(!tempWorld) {
+            String worldPath = path + "/" + simpleWorld.getWorldName() + ".json";
+
+            PrintWriter writer = new PrintWriter(new FileWriter(worldPath));
+
+            writer.write(gson.toJson(config));
+            writer.flush();
+            writer.close();
+            worldName = simpleWorld.getWorldName();
+        }
+
+        configHashMap.put(worldName, config);
     }
 
     public static File getWorldDirectory(){

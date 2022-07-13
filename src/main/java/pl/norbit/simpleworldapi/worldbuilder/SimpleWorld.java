@@ -34,7 +34,9 @@ public class SimpleWorld {
             time = PluginConfig.TIME,
             spawnEntities = PluginConfig.SPAWN_ENTITIES,
             explosionsBreak = PluginConfig.EXPLOSION_BREAK,
-            generateCenterBlock = PluginConfig.CENTER_BLOCK;
+            generateCenterBlock = PluginConfig.CENTER_BLOCK,
+            temporaryWorld = false,
+            templateWorld = false;
     @Builder.Default
     private SimpleWorldType simpleWorldType = SimpleWorldType.valueOf(PluginConfig.SIMPLE_WORLD_TYPE.toUpperCase());
 

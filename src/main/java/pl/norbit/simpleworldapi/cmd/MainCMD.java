@@ -54,8 +54,9 @@ public class MainCMD implements CommandExecutor {
             SimpleWorld simpleWorld = SimpleWorld.builder()
                     .worldName(worldName)
                     .difficulty(Difficulty.EASY)
+                    .temporaryWorld(true)
+                    .templateWorld(true)
                     .build();
-
 
             WorldManager.createWorld(simpleWorld);
 

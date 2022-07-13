@@ -33,17 +33,19 @@ public class WorldManager {
         Bukkit.getServer().unloadWorld(template, true);
 
         String worldsPath;
+
         worldsPath = Bukkit.getWorldContainer().getPath();
 
         File file = new File(worldsPath + "/" + worldName);
+        System.out.println(worldsPath);
         String newWorldPath;
 
         if(tempWorld) {
-            newWorldPath = worldsPath + "/temp/" + cloneWoldName;
+            newWorldPath = "/temp/" + cloneWoldName;
         }else{
-            newWorldPath = worldsPath + cloneWoldName;
+            newWorldPath = cloneWoldName;
         }
-        File file2 = new File(newWorldPath);
+        File file2 = new File(worldsPath + "/" + newWorldPath);
 
         try {
             FileUtils.copyDirectory(file, file2);
@@ -51,27 +53,32 @@ public class WorldManager {
             throw new RuntimeException(e);
         }
 
-        File uidFile = new File(newWorldPath + "/uid.dat");
+        File uidFile = new File(worldsPath + "/" + newWorldPath + "/uid.dat");
 
         if(uidFile.exists()){
             uidFile.delete();
         }
 
+        System.out.println(newWorldPath);
+
         WorldCreator creator = new WorldCreator(newWorldPath);
-        new WorldCreator(worldName).createWorld();
 
         World world = creator.createWorld();
+
         WorldConfig config;
 
         if(tempWorld) {
-            config = WorldConfigManager.loadTempWorldConfig(worldName, "./temp/" + cloneWoldName);
+            config = WorldConfigManager.loadTempWorldConfig(worldName, "/temp/" + cloneWoldName);
         }else{
             try {
-                config = WorldConfigManager.createWorldConfig(worldName);
-                System.out.println(config);
+                config = WorldConfigManager.createWorldConfig(worldName, cloneWoldName);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+        if(!config.isTemplate()){
+            new WorldCreator(worldName).createWorld();
         }
 
         world.setPVP(config.isPvp());
@@ -99,9 +106,8 @@ public class WorldManager {
 
     public static World loadWorld(String worldName){
 
-        World world1 = Bukkit.getWorld(worldName);
-
-        if(world1 != null) {
+        File file = new File(Bukkit.getWorldContainer().getPath() + worldName);
+        if(file.exists()) {
             World world = new WorldCreator(worldName).createWorld();
             loadSettings(world);
 

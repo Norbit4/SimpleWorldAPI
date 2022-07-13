@@ -27,8 +27,9 @@ public class Creator {
             world.setGameRuleValue(gameRule.getGameRule(), gameRule.getOption());
         });
 
+
         try {
-            WorldConfigManager.createWorldConfig(simpleWorld);
+            WorldConfigManager.createWorldConfig(simpleWorld, simpleWorld.isTemporaryWorld());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -41,7 +42,14 @@ public class Creator {
     private static World generate(SimpleWorld simpleWorld){
         boolean useSimpleType = true;
 
-        WorldCreator worldCreator = new WorldCreator(simpleWorld.getWorldName())
+        String worldName = simpleWorld.getWorldName();
+
+        if(simpleWorld.isTemporaryWorld()){
+            worldName = "/temp/" + simpleWorld.getWorldName();
+
+        }
+
+        WorldCreator worldCreator = new WorldCreator(worldName)
                 .environment(simpleWorld.getEnvironment())
                 .generateStructures(simpleWorld.isGenerateStructures());
 
@@ -62,6 +70,7 @@ public class Creator {
             worldCreator.type(simpleWorldType.getWorldType());
             worldCreator.generatorSettings(simpleWorldType.getGeneratorSettings());
         }
+
         return worldCreator.createWorld();
     }
 }

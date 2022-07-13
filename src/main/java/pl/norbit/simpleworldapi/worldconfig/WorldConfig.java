@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class WorldConfig {
 
-    private boolean pvp, loadOnStart, spawnEntities, explosionsBreak, weather, time;
+    private boolean pvp, loadOnStart, spawnEntities, explosionsBreak, weather, time, template;
     private String difficulty;
 }
