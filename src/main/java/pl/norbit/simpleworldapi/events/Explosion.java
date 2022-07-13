@@ -21,7 +21,7 @@ public class Explosion implements Listener {
         if(configHashMap.containsKey(worldName)){
             WorldConfig config = configHashMap.get(worldName);
 
-            if(!config.isExplosions()){
+            if(!config.isExplosionsBreak()){
                 e.blockList().clear();
             }
         }

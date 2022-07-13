@@ -13,7 +13,7 @@ public class TimeTask {
 
         javaPlugin.getServer().getScheduler().runTaskTimer(javaPlugin, () ->{
             WorldConfigManager.getConfigHashMap().forEach((worldName, config) -> {
-                if(!config.isDayCycle()){
+                if(!config.isTime()){
                     Bukkit.getWorld(worldName).setTime(0L);
                 }
             });

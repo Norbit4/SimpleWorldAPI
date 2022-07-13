@@ -64,11 +64,19 @@ public class WorldConfigManager {
     }
 
     public static WorldConfig loadTempWorldConfig(String world, String cloneWorld){
-        WorldConfig config = configHashMap.get(world);
 
-        configHashMap.put(cloneWorld, config);
+        if(configHashMap.containsKey(world)) {
+            WorldConfig config = configHashMap.get(world);
 
-        return config;
+            configHashMap.put(cloneWorld, config);
+
+            return config;
+        }
+        configHashMap.forEach((key, value) -> {
+            System.out.println(key);
+        });
+
+        return null;
     }
 
     public static WorldConfig createWorldConfig(String copyWorldName) throws IOException {
@@ -80,6 +88,8 @@ public class WorldConfigManager {
         writer.write(gson.toJson(config));
         writer.flush();
         writer.close();
+
+        configHashMap.put(copyWorldName, config);
 
         return config;
     }
@@ -101,6 +111,8 @@ public class WorldConfigManager {
         writer.write(gson.toJson(config));
         writer.flush();
         writer.close();
+
+        configHashMap.put(simpleWorld.getWorldName(), config);
     }
 
     public static File getWorldDirectory(){

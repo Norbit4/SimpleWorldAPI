@@ -24,19 +24,13 @@ public class WorldManager {
 
     public static World createWorld(SimpleWorld simpleWorld){
 
-        try {
-            WorldConfigManager.reloadConfigList();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         return Creator.normal(simpleWorld);
     }
 
     public static World clone(String worldName, String cloneWoldName, boolean tempWorld){
 
         World template = SimpleWorldAPI.getInstance().getServer().getWorld(worldName);
-        template.save();
+        Bukkit.getServer().unloadWorld(template, true);
 
         String worldsPath;
         worldsPath = Bukkit.getWorldContainer().getPath();
@@ -64,14 +58,17 @@ public class WorldManager {
         }
 
         WorldCreator creator = new WorldCreator(newWorldPath);
+        new WorldCreator(worldName).createWorld();
 
         World world = creator.createWorld();
         WorldConfig config;
-        if(tempWorld){
+
+        if(tempWorld) {
             config = WorldConfigManager.loadTempWorldConfig(worldName, "./temp/" + cloneWoldName);
         }else{
             try {
                 config = WorldConfigManager.createWorldConfig(worldName);
+                System.out.println(config);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

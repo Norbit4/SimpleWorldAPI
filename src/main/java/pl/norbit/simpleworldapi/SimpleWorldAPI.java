@@ -16,6 +16,7 @@ public final class SimpleWorldAPI extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
 
         PluginConfigManager.load();
 
@@ -25,7 +26,6 @@ public final class SimpleWorldAPI extends JavaPlugin {
             throw new RuntimeException(e);
         }
 
-        instance = this;
         WorldConfigManager.init(this);
 
         TimeTask.run();
