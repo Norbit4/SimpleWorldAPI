@@ -28,8 +28,8 @@ public final class SimpleWorldAPI extends JavaPlugin {
 
         WorldConfigManager.init(this);
 
-        //TimeTask.run();
-        //EventManager.registerEvents();
+        TimeTask.run();
+        EventManager.registerEvents();
 
         try {
             WorldManager.loadConfigWorlds();

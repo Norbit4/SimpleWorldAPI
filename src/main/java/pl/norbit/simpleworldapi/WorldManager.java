@@ -94,12 +94,18 @@ public class WorldManager {
         configHashMap.forEach((worldName, config) -> {
 
             if(config.isLoadOnStart()){
-                World world = new WorldCreator(worldName).createWorld();
+                File file = new File(worldName);
 
-                world.setDifficulty(Difficulty.valueOf(config.getDifficulty().toUpperCase()));
-                world.setPVP(config.isPvp());
+                if(file.exists()) {
+                    World world = new WorldCreator(worldName).createWorld();
 
-                loadedWorldList.add(world);
+                    world.setDifficulty(Difficulty.valueOf(config.getDifficulty().toUpperCase()));
+                    world.setPVP(config.isPvp());
+
+                    loadedWorldList.add(world);
+                }else{
+                    System.out.println("World " + worldName +" does not exist!");
+                }
             }
         });
     }

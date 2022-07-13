@@ -1,6 +1,7 @@
 package pl.norbit.simpleworldapi.tasks;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.norbit.simpleworldapi.SimpleWorldAPI;
 import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
@@ -14,7 +15,10 @@ public class TimeTask {
         javaPlugin.getServer().getScheduler().runTaskTimer(javaPlugin, () ->{
             WorldConfigManager.getConfigHashMap().forEach((worldName, config) -> {
                 if(!config.isTime()){
-                    Bukkit.getWorld(worldName).setTime(0L);
+                    World world = Bukkit.getWorld(worldName);
+                    if(world != null){
+                        world.setTime(0L);
+                    }
                 }
             });
 
