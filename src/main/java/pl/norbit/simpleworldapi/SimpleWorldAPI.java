@@ -16,6 +16,8 @@ public final class SimpleWorldAPI extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        enableMessage();
+
         instance = this;
 
         PluginConfigManager.load();
@@ -43,8 +45,28 @@ public final class SimpleWorldAPI extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        disableMessage();
     }
+    private static void enableMessage(){
+        System.out.println("");
+        System.out.println("-------[SimpleWorldAPI]-------");
+        System.out.println("");
+        System.out.println("HI :)");
+        System.out.println("");
+        System.out.println("Wiki: ");
+        System.out.println("Plugin created by Norbit4");
+        System.out.println("------------------------------");
+    }
+
+    private static void disableMessage(){
+        System.out.println("");
+        System.out.println("-------[SimpleWorldAPI]-------");
+        System.out.println("");
+        System.out.println("BYE :(");
+        System.out.println("");
+        System.out.println("------------------------------");
+    }
+
     public static JavaPlugin getInstance() {
         return instance;
     }

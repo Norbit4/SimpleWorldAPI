@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.norbit.simpleworldapi.WorldManager;
 import pl.norbit.simpleworldapi.config.PluginConfig;
+import pl.norbit.simpleworldapi.utils.PermissionUtil;
 import pl.norbit.simpleworldapi.utils.ChatUtil;
 import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
 
@@ -18,35 +19,68 @@ public class MainCMD implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+        if(!(sender instanceof Player)) return false;
+
         Player p = (Player) sender;
         if(args.length > 0){
 
             long t1 = System.currentTimeMillis();
+            PermissionUtil permissionUtil = new PermissionUtil(p);
             String arg1 = args[0];
 
             if(arg1.equalsIgnoreCase("create")) {
+                String[] permList = {"swapi.*", "*", "swapi.world.create", "swapi.world.*"};
 
-                createWorld(p, args, t1);
+                if(permissionUtil.hasPermission(permList)){
+
+                    createWorld(p, args, t1);
+                }else {
+                    p.sendMessage(ChatUtil.format(PluginConfig.PERMISSION_MESSAGE));
+                }
             }else if(arg1.equalsIgnoreCase("tp")) {
+                String[] permList = {"swapi.*", "*", "swapi.tp"};
 
-                teleport(p, args);
+                if(permissionUtil.hasPermission(permList)){
+
+                    teleport(p, args);
+                }else {
+                    p.sendMessage(ChatUtil.format(PluginConfig.PERMISSION_MESSAGE));
+                }
             }else if(arg1.equalsIgnoreCase("clone")) {
+                String[] permList = {"swapi.*", "*", "swapi.world.clone", "swapi.world.*"};
 
-                cloneWorld(p, args, t1);
+                if(permissionUtil.hasPermission(permList)){
+
+                    cloneWorld(p, args, t1);
+                }else {
+                    p.sendMessage(ChatUtil.format(PluginConfig.PERMISSION_MESSAGE));
+                }
             }else if(arg1.equalsIgnoreCase("load")){
+                String[] permList = {"swapi.*", "*", "swapi.world.load", "swapi.world.*"};
 
-                loadWorld(p, args, t1);
+                if(permissionUtil.hasPermission(permList)){
+
+                    loadWorld(p, args, t1);
+                }else {
+                    p.sendMessage(ChatUtil.format(PluginConfig.PERMISSION_MESSAGE));
+                }
+            }else{
+                sendHelpMessage(p);
             }
         }else{
-            p.sendMessage(ChatUtil.format(""));
-            p.sendMessage(ChatUtil.format("&7---------------&8[&aSimpleWorldAPI&8]&7---------------"));
-            p.sendMessage(ChatUtil.format("&a* &8/&bswapi &acreate &a<name> &7- create new world"));
-            p.sendMessage(ChatUtil.format("&a* &8/&bswapi &atp &a<world>  <x> <y> <z> &7- tp to world"));
-            p.sendMessage(ChatUtil.format("&a* &8/&bswapi &aload &a<world> &7- load world"));
-            p.sendMessage(ChatUtil.format("&a* &8/&bswapi &aclone &a<world> <new_world> &7- copy world"));
-            p.sendMessage(ChatUtil.format(""));
+            sendHelpMessage(p);
         }
         return false;
+    }
+
+    private void sendHelpMessage(Player p){
+        p.sendMessage("");
+        p.sendMessage(ChatUtil.format("&7---------------&8[&aSimpleWorldAPI&8]&7---------------"));
+        p.sendMessage(ChatUtil.format("&a* &8/&bswapi &acreate &a<name> &7- create new world"));
+        p.sendMessage(ChatUtil.format("&a* &8/&bswapi &atp &a<world>  <x> <y> <z> &7- tp to world"));
+        p.sendMessage(ChatUtil.format("&a* &8/&bswapi &aload &a<world> &7- load world"));
+        p.sendMessage(ChatUtil.format("&a* &8/&bswapi &aclone &a<world> <new_world> &7- copy world"));
+        p.sendMessage("");
     }
 
     private void createWorld(Player p, String[] args, long t1){
@@ -102,11 +136,11 @@ public class MainCMD implements CommandExecutor {
             World world = Bukkit.getWorld(worldName);
 
             if (world != null) {
-
-                p.teleport(new Location(world, x, y, z));
                 String message = PluginConfig.TP_MESSAGE
                         .replace("{WORLD}", worldName)
                         .replace("{PLAYER}",p.getName());
+
+                p.teleport(new Location(world, x, y, z));
                 p.sendMessage(ChatUtil.format(message));
             } else {
                 String message = PluginConfig.UNLOADED_WORLD
