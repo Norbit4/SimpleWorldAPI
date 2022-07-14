@@ -109,7 +109,10 @@ public class MainCMD implements CommandExecutor {
                         .replace("{PLAYER}",p.getName());
                 p.sendMessage(ChatUtil.format(message));
             } else {
-                p.sendMessage("world = null");
+                String message = PluginConfig.UNLOADED_WORLD
+                        .replace("{WORLD}", worldName);
+
+                p.sendMessage(ChatUtil.format(message));
             }
         }else{
             String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}", "/swapi tp <world>");
@@ -158,7 +161,10 @@ public class MainCMD implements CommandExecutor {
                 p.sendMessage(ChatUtil.format(message));
 
             }else{
-                p.sendMessage("world = null");
+                String message = PluginConfig.NON_EXISTENT_WORLD
+                        .replace("{WORLD}", worldName);
+
+                p.sendMessage(ChatUtil.format(message));
             }
         }else{
             String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}", "/swapi load <world>");

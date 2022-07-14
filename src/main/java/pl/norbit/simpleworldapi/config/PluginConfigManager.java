@@ -30,5 +30,7 @@ public class PluginConfigManager {
         PluginConfig.WORLD_CREATE_MESSAGE = config.getString("world-create-message");
         PluginConfig.WORLD_CLONE_MESSAGE = config.getString("world-clone-message");
         PluginConfig.TP_MESSAGE = config.getString("tp-message");
+        PluginConfig.UNLOADED_WORLD = config.getString("unloaded-world");
+        PluginConfig.NON_EXISTENT_WORLD= config.getString("non-existent-world");
     }
 }

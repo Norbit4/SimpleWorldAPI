@@ -10,6 +10,8 @@ wrong-args-prefix: '&7Use: &a{CMD}'
 world-load-message: '&7World &a{WORLD} &7has been loaded &8{TIME} ms'
 world-create-message: '&7World &a{WORLD} &7has been created &8{TIME} ms'
 world-clone-message: '&7World &a{WORLD} &7has been cloned &8{TIME} ms'
+unloaded-world: '&7World &a{WORLD} &7is not loaded!'
+non-existent-world: '&7World &a{WORLD} &7does not exist!'
 tp-message: '&7Teleported &b{PLAYER} &7to &a{WORLD}'
 
 #---------------------------------------#
