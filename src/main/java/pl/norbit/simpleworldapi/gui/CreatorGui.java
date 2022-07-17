@@ -12,7 +12,7 @@ import pl.norbit.simpleworldapi.worldbuilder.enums.SimpleWorldType;
 import java.util.Arrays;
 import java.util.List;
 
-class WorldCreatorGui {
+class CreatorGui {
 
     protected static void open(Player p, SimpleWorld simpleWorld){
 
@@ -39,7 +39,6 @@ class WorldCreatorGui {
         Material material = Material.SIGN;
 
         switch (simpleWorldType){
-
             case VOID:
                 material = Material.FEATHER;
                 break;
@@ -53,7 +52,6 @@ class WorldCreatorGui {
                 material = Material.STONE;
                 break;
         }
-
 
         List<String> loreGeneratorType = Arrays.asList(
                 "",
@@ -95,7 +93,6 @@ class WorldCreatorGui {
                 prefix = "&c";
                 break;
         }
-
 
         List<String> loreDifficulty = Arrays.asList(
                 "",

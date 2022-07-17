@@ -46,7 +46,6 @@ public class Creator {
 
         if(simpleWorld.isTemporaryWorld()){
             worldName = "/temp/" + simpleWorld.getWorldName();
-
         }
 
         WorldCreator worldCreator = new WorldCreator(worldName)

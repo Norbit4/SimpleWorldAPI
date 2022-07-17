@@ -126,7 +126,6 @@ public class WorldConfigManager {
             writer.close();
             worldName = simpleWorld.getWorldName();
         }
-
         configHashMap.put(worldName, config);
     }
 

@@ -32,7 +32,6 @@ class ItemStackConstructor {
 
         if(lore != null){
             lore.replaceAll(ChatUtil::format);
-
             itemMeta.setLore(lore);
         }
 

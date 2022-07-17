@@ -13,9 +13,9 @@ public class GuiManager {
             Settings2Gui.open(p, simpleWorld);
         } else if (guiType == GuiType.CREATOR_MENU) {
             if(simpleWorld != null){
-                WorldCreatorGui.open(p, simpleWorld);
+                CreatorGui.open(p, simpleWorld);
             }else{
-                WorldCreatorGui.open(p, WorldCreatorManager.newCreator(p, worldName));
+                CreatorGui.open(p, WorldCreatorManager.newCreator(p, worldName));
             }
         }
     }

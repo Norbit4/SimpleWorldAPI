@@ -25,6 +25,5 @@ public class EntitySpawn implements Listener {
                 e.setCancelled(true);
             }
         }
-
     }
 }

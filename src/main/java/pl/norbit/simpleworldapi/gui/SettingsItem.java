@@ -32,5 +32,4 @@ class SettingsItem {
 
         return itemStack;
     }
-
 }

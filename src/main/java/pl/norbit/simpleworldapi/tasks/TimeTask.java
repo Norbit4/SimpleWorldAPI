@@ -21,8 +21,6 @@ public class TimeTask {
                     }
                 }
             });
-
         },1,20 * 10);
-
     }
 }

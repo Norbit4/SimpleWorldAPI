@@ -3,9 +3,7 @@ package pl.norbit.simpleworldapi.gui;
 
 import lombok.Getter;
 import org.bukkit.Difficulty;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import pl.norbit.simpleworldapi.WorldManager;
@@ -14,7 +12,6 @@ import pl.norbit.simpleworldapi.utils.ChatUtil;
 import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
 import pl.norbit.simpleworldapi.worldbuilder.enums.SimpleWorldType;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.UUID;
 
