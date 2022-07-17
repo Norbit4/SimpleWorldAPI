@@ -1,18 +1,18 @@
-package pl.norbit.simpleworldapi.events;
-
+package pl.norbit.simpleworldapi.protectionevents;
+;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import pl.norbit.simpleworldapi.worldconfig.WorldConfig;
 import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
 
 import java.util.HashMap;
 
-public class EntitySpawn implements Listener {
+public class Explosion implements Listener {
 
     @EventHandler
-    public void onEvent(EntitySpawnEvent e){
+    public void onEvent(EntityExplodeEvent e){
 
         Location loc = e.getLocation();
         String worldName = loc.getWorld().getName();
@@ -21,8 +21,8 @@ public class EntitySpawn implements Listener {
         if(configHashMap.containsKey(worldName)){
             WorldConfig config = configHashMap.get(worldName);
 
-            if(!config.isSpawnMonsters()){
-                e.setCancelled(true);
+            if(!config.isExplosionsBreak()){
+                e.blockList().clear();
             }
         }
     }

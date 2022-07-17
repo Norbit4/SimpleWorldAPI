@@ -3,7 +3,7 @@ package pl.norbit.simpleworldapi;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.norbit.simpleworldapi.cmd.MainCMD;
 import pl.norbit.simpleworldapi.config.PluginConfigManager;
-import pl.norbit.simpleworldapi.events.EventManager;
+import pl.norbit.simpleworldapi.protectionevents.EventManager;
 import pl.norbit.simpleworldapi.file.FileManager;
 import pl.norbit.simpleworldapi.tasks.TimeTask;
 import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;

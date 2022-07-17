@@ -1,27 +1,28 @@
-package pl.norbit.simpleworldapi.events;
+package pl.norbit.simpleworldapi.protectionevents;
 
-import org.bukkit.World;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import pl.norbit.simpleworldapi.worldconfig.WorldConfig;
 import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
 
 import java.util.HashMap;
 
-public class Weather implements Listener {
+public class EntitySpawn implements Listener {
 
     @EventHandler
-    public void onEvent(WeatherChangeEvent e){
-        World world = e.getWorld();
-        String worldName = world.getName();
+    public void onEvent(EntitySpawnEvent e){
+
+        Location loc = e.getLocation();
+        String worldName = loc.getWorld().getName();
         HashMap<String, WorldConfig> configHashMap = WorldConfigManager.getConfigHashMap();
 
         if(configHashMap.containsKey(worldName)){
             WorldConfig config = configHashMap.get(worldName);
 
-            if(!config.isWeather()){
-                e.setCancelled(e.toWeatherState());
+            if(!config.isSpawnMonsters()){
+                e.setCancelled(true);
             }
         }
     }

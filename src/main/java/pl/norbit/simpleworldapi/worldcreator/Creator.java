@@ -22,6 +22,7 @@ public class Creator {
         world.setDifficulty(simpleWorld.getDifficulty());
 
         world.setPVP(simpleWorld.isPvp());
+        world.setSpawnFlags(simpleWorld.isSpawnMonsters(), simpleWorld.isSpawnAnimals());
 
         simpleWorld.getGameRules().forEach(gameRule -> {
             world.setGameRuleValue(gameRule.getGameRule(), gameRule.getOption());

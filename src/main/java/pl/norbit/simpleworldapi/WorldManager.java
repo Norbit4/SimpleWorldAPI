@@ -83,6 +83,7 @@ public class WorldManager {
 
         world.setPVP(config.isPvp());
         world.setDifficulty(Difficulty.valueOf(config.getDifficulty()));
+        world.setSpawnFlags(config.isSpawnMonsters(), config.isSpawnAnimals());
 
         return world;
     }
@@ -101,6 +102,7 @@ public class WorldManager {
 
                     world.setDifficulty(Difficulty.valueOf(config.getDifficulty().toUpperCase()));
                     world.setPVP(config.isPvp());
+                    world.setSpawnFlags(config.isSpawnMonsters(), config.isSpawnAnimals());
 
                     loadedWorldList.add(world);
                 }else{
