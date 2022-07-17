@@ -23,7 +23,7 @@ public final class SimpleWorldAPI extends JavaPlugin {
         PluginConfigManager.load();
 
         try {
-            FileManager.clearTempFile();
+            FileManager.clearTempFiles();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

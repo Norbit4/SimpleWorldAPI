@@ -9,7 +9,7 @@ import java.nio.file.Files;
 
 public class FileManager {
 
-    public static void clearTempFile() throws IOException {
+    public static void clearTempFiles() throws IOException {
         File dir = new File(Bukkit.getServer().getWorldContainer().getCanonicalPath() + "\\temp");
 
         if(dir.exists()){

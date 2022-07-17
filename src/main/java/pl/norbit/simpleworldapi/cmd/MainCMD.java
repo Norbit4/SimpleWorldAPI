@@ -1,7 +1,6 @@
 package pl.norbit.simpleworldapi.cmd;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Difficulty;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -10,9 +9,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.norbit.simpleworldapi.WorldManager;
 import pl.norbit.simpleworldapi.config.PluginConfig;
+import pl.norbit.simpleworldapi.gui.GuiManager;
+import pl.norbit.simpleworldapi.gui.GuiType;
 import pl.norbit.simpleworldapi.utils.PermissionUtil;
 import pl.norbit.simpleworldapi.utils.ChatUtil;
-import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
 
 public class MainCMD implements CommandExecutor {
 
@@ -33,7 +33,7 @@ public class MainCMD implements CommandExecutor {
 
                 if(permissionUtil.hasPermission(permList)){
 
-                    createWorld(p, args, t1);
+                    createWorld(p, args);
                 }else {
                     p.sendMessage(ChatUtil.format(PluginConfig.PERMISSION_MESSAGE));
                 }
@@ -83,25 +83,11 @@ public class MainCMD implements CommandExecutor {
         p.sendMessage("");
     }
 
-    private void createWorld(Player p, String[] args, long t1){
+    private void createWorld(Player p, String[] args){
         if(args.length > 1) {
+
             String worldName = args[1];
-
-            SimpleWorld simpleWorld = SimpleWorld.builder()
-                    .worldName(worldName)
-                    .difficulty(Difficulty.EASY)
-                    .temporaryWorld(true)
-                    .templateWorld(true)
-                    .build();
-
-            WorldManager.createWorld(simpleWorld);
-
-            long time = System.currentTimeMillis() - t1;
-            String message = PluginConfig.WORLD_CREATE_MESSAGE
-                    .replace("{WORLD}", worldName)
-                    .replace("{TIME}",String.valueOf(time));
-
-            p.sendMessage(ChatUtil.format(message));
+            GuiManager.open(p, GuiType.CREATOR_MENU, worldName, null);
         }else{
             String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}", "/swapi create <world>");
             p.sendMessage(ChatUtil.format(message));

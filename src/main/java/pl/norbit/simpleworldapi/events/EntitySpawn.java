@@ -21,7 +21,7 @@ public class EntitySpawn implements Listener {
         if(configHashMap.containsKey(worldName)){
             WorldConfig config = configHashMap.get(worldName);
 
-            if(!config.isSpawnEntities()){
+            if(!config.isSpawnMonsters()){
                 e.setCancelled(true);
             }
         }

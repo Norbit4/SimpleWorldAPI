@@ -3,6 +3,7 @@ package pl.norbit.simpleworldapi.worldbuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.WorldType;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 public class SimpleWorld {
@@ -32,7 +34,14 @@ public class SimpleWorld {
             pvp = PluginConfig.PVP,
             weather = PluginConfig.WEATHER,
             time = PluginConfig.TIME,
-            spawnEntities = PluginConfig.SPAWN_ENTITIES,
+            spawnMonsters = PluginConfig.SPAWN_ENTITIES,
+            spawnAnimals = PluginConfig.SPAWN_ENTITIES,
+            drownDamage = true,
+            fireDamage = true,
+            fireSpread = true,
+            fallDamage = true,
+            placeBlocks = true,
+            breakBlocks = true,
             explosionsBreak = PluginConfig.EXPLOSION_BREAK,
             generateCenterBlock = PluginConfig.CENTER_BLOCK,
             temporaryWorld = false,

@@ -99,10 +99,17 @@ public class WorldConfigManager {
         WorldConfig config = new WorldConfig(
                 simpleWorld.isPvp(),
                 simpleWorld.isLoadOnStart(),
-                simpleWorld.isSpawnEntities(),
+                simpleWorld.isSpawnMonsters(),
+                simpleWorld.isSpawnAnimals(),
                 simpleWorld.isExplosionsBreak(),
                 simpleWorld.isWeather(),
                 simpleWorld.isTime(),
+                simpleWorld.isFireDamage(),
+                simpleWorld.isFireSpread(),
+                simpleWorld.isFallDamage(),
+                simpleWorld.isBreakBlocks(),
+                simpleWorld.isPlaceBlocks(),
+                simpleWorld.isDrownDamage(),
                 simpleWorld.isTemplateWorld(),
                 simpleWorld.getDifficulty().name()
         );
