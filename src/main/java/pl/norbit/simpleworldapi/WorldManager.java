@@ -37,9 +37,7 @@ public class WorldManager {
             Bukkit.getServer().unloadWorld(template, true);
         }
 
-        String worldsPath;
-
-        worldsPath = Bukkit.getWorldContainer().getPath();
+        String worldsPath = Bukkit.getWorldContainer().getPath();
 
         File file = new File(worldsPath + "/" + worldName);
         System.out.println(worldsPath);
@@ -119,7 +117,7 @@ public class WorldManager {
 
     public static World loadWorld(String worldName){
 
-        File file = new File(Bukkit.getWorldContainer().getPath() + worldName);
+        File file = new File(Bukkit.getWorldContainer().getPath() + "/" + worldName);
         if(file.exists()) {
             World world = new WorldCreator(worldName).createWorld();
             loadSettings(world);
