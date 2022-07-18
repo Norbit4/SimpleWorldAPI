@@ -37,8 +37,19 @@ class Settings2Gui {
                 .build();
         ItemStack itemStackCenterBlock = builderCenterBlock.getItemStack();
 
-        worldSettings.setItem(4, itemStackCenterBlock);
-        SettingsItem.create(worldSettings, itemStackCenterBlock, 4, simpleWorld.isGenerateCenterBlock());
+        worldSettings.setItem(3, itemStackCenterBlock);
+        SettingsItem.create(worldSettings, itemStackCenterBlock, 3, simpleWorld.isGenerateCenterBlock());
+
+        //center block
+        ItemStackConstructor builderCenterTemp = ItemStackConstructor
+                .builder()
+                .name("&cTemp world")
+                .material(Material.REDSTONE)
+                .build();
+        ItemStack itemStackTemp = builderCenterTemp.getItemStack();
+
+        worldSettings.setItem(5, itemStackTemp);
+        SettingsItem.create(worldSettings, itemStackTemp, 5, simpleWorld.isTemporaryWorld());
 
         //template world
         ItemStackConstructor builderTemplate = ItemStackConstructor
@@ -70,8 +81,19 @@ class Settings2Gui {
                 .build();
         ItemStack itemStackPlaceBlocks = builderPlaceBlocks.getItemStack();
 
-        worldSettings.setItem(31, itemStackPlaceBlocks);
-        SettingsItem.create(worldSettings, itemStackPlaceBlocks, 31, simpleWorld.isPlaceBlocks());
+        worldSettings.setItem(30, itemStackPlaceBlocks);
+        SettingsItem.create(worldSettings, itemStackPlaceBlocks, 30, simpleWorld.isPlaceBlocks());
+
+        //place blocks
+        ItemStackConstructor builderGravity = ItemStackConstructor
+                .builder()
+                .name("&eGravity")
+                .material(Material.GRAVEL)
+                .build();
+        ItemStack itemStackGravity = builderGravity.getItemStack();
+
+        worldSettings.setItem(32, itemStackGravity);
+        SettingsItem.create(worldSettings, itemStackGravity, 32, simpleWorld.isGravity());
 
         //drown damage
         ItemStackConstructor builderDrownDamage = ItemStackConstructor

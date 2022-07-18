@@ -21,6 +21,7 @@ public class WorldConfig {
             breakBlocks,
             placeBlocks,
             drownDamage,
+            gravity,
             template;
     private String difficulty;
 }

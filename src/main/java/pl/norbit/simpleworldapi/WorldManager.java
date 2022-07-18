@@ -29,8 +29,13 @@ public class WorldManager {
 
     public static World clone(String worldName, String cloneWoldName, boolean tempWorld){
 
+        World defaultWorld = SimpleWorldAPI.getInstance().getServer().getWorld("world");
         World template = SimpleWorldAPI.getInstance().getServer().getWorld(worldName);
-        Bukkit.getServer().unloadWorld(template, true);
+        if(template != null) {
+            template.getPlayers().forEach(p -> p.teleport(new Location(defaultWorld, 0, 80, 0)));
+            template.save();
+            Bukkit.getServer().unloadWorld(template, true);
+        }
 
         String worldsPath;
 

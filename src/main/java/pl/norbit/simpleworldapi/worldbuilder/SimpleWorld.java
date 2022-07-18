@@ -45,7 +45,8 @@ public class SimpleWorld {
             explosionsBreak = PluginConfig.EXPLOSION_BREAK,
             generateCenterBlock = PluginConfig.CENTER_BLOCK,
             temporaryWorld = false,
-            templateWorld = false;
+            templateWorld = false,
+            gravity = true;
     @Builder.Default
     private SimpleWorldType simpleWorldType = SimpleWorldType.valueOf(PluginConfig.SIMPLE_WORLD_TYPE.toUpperCase());
 

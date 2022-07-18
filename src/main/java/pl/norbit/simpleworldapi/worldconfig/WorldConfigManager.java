@@ -110,6 +110,7 @@ public class WorldConfigManager {
                 simpleWorld.isBreakBlocks(),
                 simpleWorld.isPlaceBlocks(),
                 simpleWorld.isDrownDamage(),
+                simpleWorld.isGravity(),
                 simpleWorld.isTemplateWorld(),
                 simpleWorld.getDifficulty().name()
         );

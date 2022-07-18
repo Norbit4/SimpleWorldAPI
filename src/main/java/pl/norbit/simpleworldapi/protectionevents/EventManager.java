@@ -20,5 +20,6 @@ public class EventManager {
         pluginManager.registerEvents(new OnInvClick(), javaPlugin);
         pluginManager.registerEvents(new BreakBlock(), javaPlugin);
         pluginManager.registerEvents(new PlaceBlock(), javaPlugin);
+        pluginManager.registerEvents(new Gravity(), javaPlugin);
     }
 }

@@ -3,6 +3,7 @@ package pl.norbit.simpleworldapi.gui;
 
 import lombok.Getter;
 import org.bukkit.Difficulty;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -95,11 +96,12 @@ public class WorldCreatorManager {
     private static void createWorld(Player p, SimpleWorld simpleWorld){
         long t1 = System.currentTimeMillis();
 
-        WorldManager.createWorld(simpleWorld);
+        p.sendMessage(ChatUtil.format("&7World is creating..."));
+        World world = WorldManager.createWorld(simpleWorld);
 
         long time = System.currentTimeMillis() - t1;
         String message = PluginConfig.WORLD_CREATE_MESSAGE
-                .replace("{WORLD}", simpleWorld.getWorldName())
+                .replace("{WORLD}", world.getName())
                 .replace("{TIME}",String.valueOf(time));
 
         p.sendMessage(ChatUtil.format(message));
@@ -180,8 +182,12 @@ public class WorldCreatorManager {
                 simpleWorld.setFallDamage(setNewStatus(inv, p, index));
                 break;
             case BEDROCK:
-                index = 4 + 9;
+                index = 3 + 9;
                 simpleWorld.setGenerateCenterBlock(setNewStatus(inv, p, index));
+                break;
+            case REDSTONE:
+                index = 5 + 9;
+                simpleWorld.setTemporaryWorld(setNewStatus(inv, p, index));
                 break;
             case ITEM_FRAME:
                 index = 7 + 9;
@@ -192,8 +198,12 @@ public class WorldCreatorManager {
                 simpleWorld.setBreakBlocks(setNewStatus(inv, p, index));
                 break;
             case BRICK:
-                index = 31 + 9;
+                index = 30 + 9;
                 simpleWorld.setPlaceBlocks(setNewStatus(inv, p, index));
+                break;
+            case GRAVEL:
+                index = 32 + 9;
+                simpleWorld.setGravity(setNewStatus(inv, p, index));
                 break;
             case WATER_BUCKET:
                 index = 34 + 9;
