@@ -62,13 +62,20 @@ public class Creator {
         if (simpleWorld.getGeneratorSettings() != null) {
             useSimpleType = false;
             worldCreator.generatorSettings(simpleWorld.getGeneratorSettings());
+
         }
 
         if (useSimpleType) {
             SimpleWorldType simpleWorldType = simpleWorld.getSimpleWorldType();
 
-            worldCreator.type(simpleWorldType.getWorldType());
-            worldCreator.generatorSettings(simpleWorldType.getGeneratorSettings());
+            if(simpleWorldType == SimpleWorldType.NETHER){
+                worldCreator.environment(World.Environment.NETHER);
+            }else if(simpleWorldType == SimpleWorldType.END){
+                worldCreator.environment(World.Environment.THE_END);
+            }else {
+                worldCreator.type(simpleWorldType.getWorldType());
+                worldCreator.generatorSettings(simpleWorldType.getGeneratorSettings());
+            }
         }
 
         return worldCreator.createWorld();

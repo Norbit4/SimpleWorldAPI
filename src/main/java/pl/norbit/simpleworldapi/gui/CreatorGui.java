@@ -51,6 +51,12 @@ class CreatorGui {
             case LARGE_BIOMES:
                 material = Material.STONE;
                 break;
+            case NETHER:
+                material = Material.NETHERRACK;
+                break;
+            case END:
+                material = Material.ENDER_STONE;
+                break;
         }
 
         List<String> loreGeneratorType = Arrays.asList(

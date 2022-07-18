@@ -69,6 +69,12 @@ public class WorldCreatorManager {
                 simpleWorld.setSimpleWorldType(SimpleWorldType.LARGE_BIOMES);
                 break;
             case STONE:
+                simpleWorld.setSimpleWorldType(SimpleWorldType.NETHER);
+                break;
+            case NETHERRACK:
+                simpleWorld.setSimpleWorldType(SimpleWorldType.END);
+                break;
+            case ENDER_STONE:
                 simpleWorld.setSimpleWorldType(SimpleWorldType.VOID);
                 break;
             case WOOL:
