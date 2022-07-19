@@ -97,41 +97,49 @@ public class MainCMD implements CommandExecutor {
         if (args.length > 1) {
 
             String worldName = args[1];
-            double x;
-            double y;
-            double z;
+            double x = 0;
+            double y= 61;
+            double z = 0;
+            boolean correctString = true;
 
             if (args.length > 4){
-                x = Double.parseDouble(args[2]);
-                y = Double.parseDouble(args[3]);
-                z = Double.parseDouble(args[4]);
+                try {
+                    x = Double.parseDouble(args[2]);
+                    y = Double.parseDouble(args[3]);
+                    z = Double.parseDouble(args[4]);
+                }catch (NumberFormatException e){
+                    correctString = false;
+                }
             }else if(args.length > 3){
-                x = Double.parseDouble(args[2]);
-                y = 61;
-                z = Double.parseDouble(args[3]);
-            }else{
-                x = 0;
-                y = 61;
-                z = 0;
+                try {
+                    x = Double.parseDouble(args[2]);
+                    z = Double.parseDouble(args[3]);
+                }catch (NumberFormatException e){
+                    correctString = false;
+                }
             }
 
-            //to center the player in block
-            x = x + 0.5;
-            z = z + 0.5;
+            if(correctString){
+                //to center the player in block
+                x = x + 0.5;
+                z = z + 0.5;
 
-            World world = Bukkit.getWorld(worldName);
+                World world = Bukkit.getWorld(worldName);
 
-            if (world != null) {
-                String message = PluginConfig.TP_MESSAGE
-                        .replace("{WORLD}", worldName)
-                        .replace("{PLAYER}",p.getName());
+                String message;
+                if (world != null) {
+                    message = PluginConfig.TP_MESSAGE
+                            .replace("{WORLD}", worldName)
+                            .replace("{PLAYER}", p.getName());
 
-                p.teleport(new Location(world, x, y, z));
+                    p.teleport(new Location(world, x, y, z));
+                } else {
+                    message = PluginConfig.UNLOADED_WORLD
+                            .replace("{WORLD}", worldName);
+                }
                 p.sendMessage(ChatUtil.format(message));
-            } else {
-                String message = PluginConfig.UNLOADED_WORLD
-                        .replace("{WORLD}", worldName);
-
+            }else{
+                String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}", "/swapi tp <world>");
                 p.sendMessage(ChatUtil.format(message));
             }
         }else{
@@ -152,13 +160,20 @@ public class MainCMD implements CommandExecutor {
 
             World clone = WorldManager.clone(args[1], args[2], tempWorld);
 
-            long time = System.currentTimeMillis() - t1;
+            if(clone != null) {
 
-            String message = PluginConfig.WORLD_CLONE_MESSAGE
-                    .replace("{WORLD}", clone.getName())
-                    .replace("{TIME}",String.valueOf(time));
+                long time = System.currentTimeMillis() - t1;
 
-            p.sendMessage(ChatUtil.format(message));
+                String message = PluginConfig.WORLD_CLONE_MESSAGE
+                        .replace("{WORLD}", clone.getName())
+                        .replace("{TIME}", String.valueOf(time));
+
+                p.sendMessage(ChatUtil.format(message));
+            }else{
+                String message = "&cError";
+
+                p.sendMessage(ChatUtil.format(message));
+            }
         }else{
             String message = PluginConfig.WRONG_ARGS_PREFIX.replace("{CMD}",
                     "/swapi clone <world> <new_world>");

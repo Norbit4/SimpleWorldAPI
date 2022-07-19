@@ -40,7 +40,10 @@ public class WorldManager {
         String worldsPath = Bukkit.getWorldContainer().getPath();
 
         File file = new File(worldsPath + "/" + worldName);
-        System.out.println(worldsPath);
+        if(!file.exists()){
+            return null;
+        }
+
         String newWorldPath;
 
         if(tempWorld) {
@@ -48,7 +51,12 @@ public class WorldManager {
         }else{
             newWorldPath = cloneWoldName;
         }
+
         File file2 = new File(worldsPath + "/" + newWorldPath);
+
+        if(file2.exists()){
+            return null;
+        }
 
         try {
             FileUtils.copyDirectory(file, file2);
@@ -61,8 +69,6 @@ public class WorldManager {
         if(uidFile.exists()){
             uidFile.delete();
         }
-
-        System.out.println(newWorldPath);
 
         WorldCreator creator = new WorldCreator(newWorldPath);
 
@@ -117,8 +123,8 @@ public class WorldManager {
 
     public static World loadWorld(String worldName){
 
-        File file = new File(Bukkit.getWorldContainer().getPath() + "/" + worldName);
-        if(file.exists()) {
+        //File file = new File(Bukkit.getWorldContainer().getPath() + "/" + worldName);
+        if(worldFileExist(worldName)) {
             World world = new WorldCreator(worldName).createWorld();
             loadSettings(world);
 
@@ -137,5 +143,20 @@ public class WorldManager {
             world.setDifficulty(Difficulty.valueOf(config.getDifficulty()));
             world.setPVP(config.isPvp());
         }
+    }
+
+    public static boolean worldExist(String worldName){
+        World world = Bukkit.getWorld(worldName);
+
+        if(world != null){
+            return true;
+        }else{
+            return worldFileExist(worldName);
+        }
+    }
+
+    public static boolean worldFileExist(String worldName){
+        File file = new File(Bukkit.getWorldContainer().getPath() + "/" + worldName);
+        return file.exists();
     }
 }

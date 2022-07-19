@@ -1,9 +1,7 @@
 package pl.norbit.simpleworldapi.worldcreator;
 
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
+import pl.norbit.simpleworldapi.WorldManager;
 import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
 import pl.norbit.simpleworldapi.worldbuilder.enums.SimpleWorldType;
 import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
@@ -13,10 +11,14 @@ import java.io.IOException;
 public class Creator {
 
     public static World normal(SimpleWorld simpleWorld){
-        World world = generate(simpleWorld);
-        setWorldSettings(world, simpleWorld);
 
-        return world;
+        World world = generate(simpleWorld);
+        if(world != null) {
+            setWorldSettings(world, simpleWorld);
+
+            return world;
+        }
+        return null;
     }
     private static void setWorldSettings(World world, SimpleWorld simpleWorld){
         world.setDifficulty(simpleWorld.getDifficulty());
@@ -48,6 +50,8 @@ public class Creator {
         if(simpleWorld.isTemporaryWorld()){
             worldName = "/temp/" + simpleWorld.getWorldName();
         }
+
+        if (WorldManager.worldExist(worldName)) return null;
 
         WorldCreator worldCreator = new WorldCreator(worldName)
                 .environment(simpleWorld.getEnvironment())

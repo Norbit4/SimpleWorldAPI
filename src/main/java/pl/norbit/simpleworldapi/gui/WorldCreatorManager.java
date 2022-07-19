@@ -98,13 +98,18 @@ public class WorldCreatorManager {
 
         p.sendMessage(ChatUtil.format("&7World is creating..."));
         World world = WorldManager.createWorld(simpleWorld);
+        if(world != null) {
 
-        long time = System.currentTimeMillis() - t1;
-        String message = PluginConfig.WORLD_CREATE_MESSAGE
-                .replace("{WORLD}", world.getName())
-                .replace("{TIME}",String.valueOf(time));
+            long time = System.currentTimeMillis() - t1;
+            String message = PluginConfig.WORLD_CREATE_MESSAGE
+                    .replace("{WORLD}", world.getName())
+                    .replace("{TIME}", String.valueOf(time));
 
-        p.sendMessage(ChatUtil.format(message));
+            p.sendMessage(ChatUtil.format(message));
+        }else{
+            String message = "&cThis world already exists!";
+            p.sendMessage(ChatUtil.format(message));
+        }
     }
 
     protected static void settingsPage1(Player p, ItemStack itemStack, Inventory inv){
