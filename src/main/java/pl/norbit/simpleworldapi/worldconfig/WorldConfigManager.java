@@ -49,8 +49,8 @@ public class WorldConfigManager {
         }
     }
 
-    public static void reloadConfigList() throws IOException {
-        File file = WorldConfigManager.getWorldDirectory();
+    public static HashMap<String, WorldConfig> reloadConfigList() throws IOException {
+        File file = WorldConfigManager.getConfigDirectory();
 
         for (File configFile : Objects.requireNonNull(file.listFiles())) {
             BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(configFile.getAbsolutePath()));
@@ -61,6 +61,7 @@ public class WorldConfigManager {
 
             configHashMap.put(worldName, config);
         }
+        return configHashMap;
     }
 
     public static WorldConfig loadTempWorldConfig(String world, String cloneWorld){
@@ -83,19 +84,23 @@ public class WorldConfigManager {
     public static WorldConfig createWorldConfig(String copyWorldName, String newWorld) throws IOException {
         String worldPath = path + "/" + newWorld + ".json";
 
-        PrintWriter writer = new PrintWriter(new FileWriter(worldPath));
-        WorldConfig config = configHashMap.get(copyWorldName);
+        if(configHashMap.containsKey(copyWorldName)) {
 
-        writer.write(gson.toJson(config));
-        writer.flush();
-        writer.close();
+            PrintWriter writer = new PrintWriter(new FileWriter(worldPath));
+            WorldConfig config = configHashMap.get(copyWorldName);
 
-        configHashMap.put(newWorld, config);
+            writer.write(gson.toJson(config));
+            writer.flush();
+            writer.close();
 
-        return config;
+            configHashMap.put(newWorld, config);
+
+            return config;
+        }
+        return createWorldConfig(SimpleWorld.builder().worldName(newWorld).build(), false);
     }
 
-    public static void createWorldConfig(SimpleWorld simpleWorld, boolean tempWorld) throws IOException {
+    public static WorldConfig createWorldConfig(SimpleWorld simpleWorld, boolean tempWorld) throws IOException {
         WorldConfig config = new WorldConfig(
                 simpleWorld.isPvp(),
                 simpleWorld.isLoadOnStart(),
@@ -128,9 +133,11 @@ public class WorldConfigManager {
             worldName = simpleWorld.getWorldName();
         }
         configHashMap.put(worldName, config);
+
+        return config;
     }
 
-    public static File getWorldDirectory(){
+    public static File getConfigDirectory(){
         return new File(path);
     }
 }

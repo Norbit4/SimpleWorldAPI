@@ -14,6 +14,8 @@ import pl.norbit.simpleworldapi.gui.GuiType;
 import pl.norbit.simpleworldapi.utils.PermissionUtil;
 import pl.norbit.simpleworldapi.utils.ChatUtil;
 
+import java.io.IOException;
+
 public class MainCMD implements CommandExecutor {
 
     @Override
@@ -64,6 +66,15 @@ public class MainCMD implements CommandExecutor {
                 }else {
                     p.sendMessage(ChatUtil.format(PluginConfig.PERMISSION_MESSAGE));
                 }
+            }else if(arg1.equalsIgnoreCase("reload")){
+                String[] permList = {"swapi.*", "*", "swapi.reload"};
+
+                if(permissionUtil.hasPermission(permList)){
+
+                    reloadConfig(p, t1);
+                }else {
+                    p.sendMessage(ChatUtil.format(PluginConfig.PERMISSION_MESSAGE));
+                }
             }else{
                 sendHelpMessage(p);
             }
@@ -83,6 +94,17 @@ public class MainCMD implements CommandExecutor {
         p.sendMessage("");
     }
 
+    private void reloadConfig(Player p, Long t1){
+        try {
+            WorldManager.reloadConfigWorlds();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        int timeMs = (int) (System.currentTimeMillis() - t1);
+
+        String message = "&aConfig reloaded! &8" + timeMs + "ms";
+        p.sendMessage(ChatUtil.format(message));
+    }
     private void createWorld(Player p, String[] args){
         if(args.length > 1) {
 

@@ -97,6 +97,22 @@ public class WorldManager {
         return world;
     }
 
+    public static void reloadConfigWorlds() throws IOException {
+
+        HashMap<String, WorldConfig> configHashMap = WorldConfigManager.reloadConfigList();
+
+        configHashMap.forEach((worldName, config) -> {
+
+            World world = Bukkit.getWorld(worldName);
+            if(world != null) {
+                world.setDifficulty(Difficulty.valueOf(config.getDifficulty().toUpperCase()));
+                world.setPVP(config.isPvp());
+                world.setSpawnFlags(config.isSpawnMonsters(), config.isSpawnAnimals());
+            }
+        });
+
+    }
+
     protected static void loadConfigWorlds() throws IOException {
 
         HashMap<String, WorldConfig> configHashMap = WorldConfigManager.getConfigHashMap();
@@ -123,8 +139,8 @@ public class WorldManager {
 
     public static World loadWorld(String worldName){
 
-        //File file = new File(Bukkit.getWorldContainer().getPath() + "/" + worldName);
-        if(worldFileExist(worldName)) {
+        World world1 = Bukkit.getWorld(worldName);
+        if(worldFileExist(worldName) && world1 == null) {
             World world = new WorldCreator(worldName).createWorld();
             loadSettings(world);
 
