@@ -3,8 +3,8 @@ package pl.norbit.simpleworldapi.protectionevents;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPhysicsEvent;
-import pl.norbit.simpleworldapi.worldconfig.WorldConfig;
-import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
+import pl.norbit.simpleworldapi.WorldConfig;
+import pl.norbit.simpleworldapi.WorldConfigManager;
 
 import java.util.HashMap;
 

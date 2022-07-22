@@ -12,7 +12,6 @@ public class EventManager {
         PluginManager pluginManager = javaPlugin.getServer().getPluginManager();
 
         pluginManager.registerEvents(new Explosion(), javaPlugin);
-        //pluginManager.registerEvents(new EntitySpawn(), javaPlugin);
         pluginManager.registerEvents(new Weather(), javaPlugin);
         pluginManager.registerEvents(new DrownDamage(), javaPlugin);
         pluginManager.registerEvents(new FallDamage(), javaPlugin);

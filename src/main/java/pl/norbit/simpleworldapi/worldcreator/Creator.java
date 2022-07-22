@@ -4,7 +4,7 @@ import org.bukkit.*;
 import pl.norbit.simpleworldapi.WorldManager;
 import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
 import pl.norbit.simpleworldapi.worldbuilder.enums.SimpleWorldType;
-import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
+import pl.norbit.simpleworldapi.WorldConfigManager;
 
 import java.io.IOException;
 

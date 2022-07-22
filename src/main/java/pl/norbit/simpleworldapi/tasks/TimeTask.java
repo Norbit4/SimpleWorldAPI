@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.norbit.simpleworldapi.SimpleWorldAPI;
-import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
+import pl.norbit.simpleworldapi.WorldConfigManager;
 
 public class TimeTask {
 

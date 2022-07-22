@@ -1,4 +1,4 @@
-package pl.norbit.simpleworldapi.worldconfig;
+package pl.norbit.simpleworldapi;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -23,7 +23,7 @@ public class WorldConfigManager {
         configHashMap = new HashMap<>();
     }
 
-    public static void init(JavaPlugin javaPlugin){
+    protected static void init(JavaPlugin javaPlugin){
 
         gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
@@ -49,7 +49,7 @@ public class WorldConfigManager {
         }
     }
 
-    public static HashMap<String, WorldConfig> reloadConfigList() throws IOException {
+    protected static HashMap<String, WorldConfig> reloadConfigList() throws IOException {
         File file = WorldConfigManager.getConfigDirectory();
 
         for (File configFile : Objects.requireNonNull(file.listFiles())) {
@@ -64,7 +64,7 @@ public class WorldConfigManager {
         return configHashMap;
     }
 
-    public static WorldConfig loadTempWorldConfig(String world, String cloneWorld){
+    protected static WorldConfig loadTempWorldConfig(String world, String cloneWorld){
 
         if(configHashMap.containsKey(world)) {
             WorldConfig config = configHashMap.get(world);
@@ -81,7 +81,7 @@ public class WorldConfigManager {
         return null;
     }
 
-    public static WorldConfig createWorldConfig(String copyWorldName, String newWorld) throws IOException {
+    protected static WorldConfig createWorldConfig(String copyWorldName, String newWorld) throws IOException {
         String worldPath = path + "/" + newWorld + ".json";
 
         if(configHashMap.containsKey(copyWorldName)) {

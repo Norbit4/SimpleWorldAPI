@@ -4,8 +4,6 @@ import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import pl.norbit.simpleworldapi.worldbuilder.SimpleWorld;
-import pl.norbit.simpleworldapi.worldconfig.WorldConfig;
-import pl.norbit.simpleworldapi.worldconfig.WorldConfigManager;
 import pl.norbit.simpleworldapi.worldcreator.Creator;
 
 import java.io.File;

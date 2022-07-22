@@ -1,4 +1,4 @@
-package pl.norbit.simpleworldapi.worldconfig;
+package pl.norbit.simpleworldapi;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
